@@ -29,8 +29,6 @@ define('ENVIRONMENT', 'development');
 // Load the bootstrap file from the system folder.
 require_once BASEPATH.'core/CodeIgniter.php';
 
-=======
-*/
 
 $application_folder = __DIR__.'/application';
 
