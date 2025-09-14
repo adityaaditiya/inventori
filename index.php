@@ -15,8 +15,13 @@ $application_folder = __DIR__.'/application';
 $system_path = __DIR__.'/system';
 
 if (!is_dir($system_path)) {
-    exit('Your system folder path does not appear to be set correctly. ' .
-         'Please ensure the "system" directory exists in: ' . __DIR__);
+    $expected = rtrim(str_replace('\\', '/', $system_path), '/');
+    exit(
+        'Your system folder path does not appear to be set correctly. '
+        . 'Please ensure the "system" directory exists in: '
+        . $expected
+    );
+
 }
 
 $system_path = rtrim(str_replace('\\', '/', realpath($system_path)), '/') . '/';
