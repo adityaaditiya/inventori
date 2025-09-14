@@ -29,6 +29,7 @@ if (is_dir($primary)) {
         . ' or '
         . $expected_secondary
     );
+
 }
 
 $system_path = rtrim(str_replace('\\', '/', realpath($system_path)), '/') . '/';
