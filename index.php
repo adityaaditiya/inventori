@@ -6,22 +6,26 @@
  * application and system folders and then includes the core framework.
  *
  * CodeIgniter uses the Model-View-Controller (MVC) pattern to keep
- * presentation, business logic and data layers separate【907651110350654†L1383-L1413】.
+ * presentation, business logic and data layers separate.
  */
 
-$system_path = '../system';
-$application_folder = 'application';
+$application_folder = __DIR__.'/application';
 
-/*
- * Resolve the system and application paths.  You may need to update these
- * variables depending on where you place CodeIgniter's `system` folder.
- */
-$system_path = rtrim(str_replace('\\', '/', $system_path), '/');
-$application_folder = rtrim(str_replace('\\', '/', $application_folder), '/');
+// Locate the CodeIgniter system folder within this directory.
+$system_path = realpath(__DIR__.'/system');
 
-define('BASEPATH', $system_path.'/');
-define('APPPATH', $application_folder.'/');
+if (!$system_path || !is_dir($system_path)) {
+    exit('Your system folder path does not appear to be set correctly. ' .
+         'Please ensure the "system" directory exists in this directory.');
+}
+
+$system_path = rtrim(str_replace('\\', '/', $system_path), '/') . '/';
+$application_folder = rtrim(str_replace('\\', '/', realpath($application_folder) ?: $application_folder), '/') . '/';
+
+define('BASEPATH', $system_path);
+define('APPPATH', $application_folder);
 define('ENVIRONMENT', 'development');
 
 // Load the bootstrap file from the system folder.
 require_once BASEPATH.'core/CodeIgniter.php';
+
