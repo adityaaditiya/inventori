@@ -11,15 +11,23 @@
 
 $application_folder = __DIR__.'/application';
 
-// Determine the CodeIgniter system folder expected in this directory.
-$system_path = __DIR__.'/system';
+// Determine the CodeIgniter system folder in common locations.
+$primary   = __DIR__.'/system';
+$secondary = dirname(__DIR__).'/system';
 
-if (!is_dir($system_path)) {
-    $expected = rtrim(str_replace('\\', '/', $system_path), '/');
+if (is_dir($primary)) {
+    $system_path = $primary;
+} elseif (is_dir($secondary)) {
+    $system_path = $secondary;
+} else {
+    $expected_primary = rtrim(str_replace('\\', '/', $primary), '/');
+    $expected_secondary = rtrim(str_replace('\\', '/', $secondary), '/');
     exit(
         'Your system folder path does not appear to be set correctly. '
-        . 'Please ensure the "system" directory exists in: '
-        . $expected
+        . 'Please ensure the "system" directory exists in either: '
+        . $expected_primary
+        . ' or '
+        . $expected_secondary
     );
 
 }
