@@ -21,6 +21,7 @@ if (!is_dir($system_path)) {
         . 'Please ensure the "system" directory exists in: '
         . $expected
     );
+
 }
 
 $system_path = rtrim(str_replace('\\', '/', realpath($system_path)), '/') . '/';
